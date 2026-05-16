@@ -1,0 +1,162 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:print_format_name",
+ "creation": "2026-05-12 16:15:36.999450",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "print_format_name",
+  "enabled",
+  "reference_doctype",
+  "page_size",
+  "orientation",
+  "column_break_1",
+  "repeat_header",
+  "repeat_footer",
+  "section_default_html",
+  "default_header_html",
+  "default_footer_html",
+  "section_body_html",
+  "body_html",
+  "custom_css",
+  "section_rules",
+  "header_rules",
+  "footer_rules"
+ ],
+ "fields": [
+  {
+   "fieldname": "print_format_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Print Format Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "reference_doctype",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Reference Doctype",
+   "options": "DocType",
+   "reqd": 1
+  },
+  {
+   "default": "A4",
+   "fieldname": "page_size",
+   "fieldtype": "Select",
+   "label": "Page Size",
+   "options": "A4\nLetter\nLegal"
+  },
+  {
+   "default": "Portrait",
+   "fieldname": "orientation",
+   "fieldtype": "Select",
+   "label": "Orientation",
+   "options": "Portrait\nLandscape"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "repeat_header",
+   "fieldtype": "Check",
+   "label": "Repeat Header"
+  },
+  {
+   "default": "0",
+   "fieldname": "repeat_footer",
+   "fieldtype": "Check",
+   "label": "Repeat Footer"
+  },
+  {
+   "fieldname": "section_default_html",
+   "fieldtype": "Section Break",
+   "label": "Default HTML Templates"
+  },
+  {
+   "fieldname": "default_header_html",
+   "fieldtype": "Code",
+   "label": "Default Header HTML",
+   "options": "HTML"
+  },
+  {
+   "fieldname": "default_footer_html",
+   "fieldtype": "Code",
+   "label": "Default Footer HTML",
+   "options": "HTML"
+  },
+  {
+   "fieldname": "section_body_html",
+   "fieldtype": "Section Break",
+   "label": "Body HTML & Styling"
+  },
+  {
+   "fieldname": "body_html",
+   "fieldtype": "Code",
+   "label": "Body HTML",
+   "options": "HTML"
+  },
+  {
+   "fieldname": "custom_css",
+   "fieldtype": "Code",
+   "label": "Custom CSS",
+   "options": "CSS"
+  },
+  {
+   "fieldname": "section_rules",
+   "fieldtype": "Section Break",
+   "label": "Header & Footer Overrides"
+  },
+  {
+   "fieldname": "header_rules",
+   "fieldtype": "Table",
+   "label": "Header Rules",
+   "options": "Advanced Print Header Rule"
+  },
+  {
+   "fieldname": "footer_rules",
+   "fieldtype": "Table",
+   "label": "Footer Rules",
+   "options": "Advanced Print Footer Rule"
+  },
+  {
+   "default": "1",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Enabled"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-05-12 17:18:26.786204",
+ "modified_by": "Administrator",
+ "module": "Advanced Print Engine",
+ "name": "Advanced Print Format",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

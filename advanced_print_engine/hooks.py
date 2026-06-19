@@ -242,3 +242,6 @@ app_include_js = "advanced_print_engine.bundle.js"
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
 
+after_migrate = "advanced_print_engine.install.after_migrate"
+
+

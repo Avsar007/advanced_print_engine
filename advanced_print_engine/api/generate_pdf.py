@@ -26,3 +26,20 @@ def get_available_templates(reference_doctype):
 		fields=["name", "print_format_name"]
 	)
 
+
+@frappe.whitelist()
+def generate_smart_html(doctype, docname, print_format_name):
+	"""Generates advanced dynamic HTML via SmartRenderer and streams it for screen preview."""
+	# Pre-flight security/access validation
+	if not frappe.has_permission(doctype, "read", docname):
+		frappe.throw(f"Not permitted to view {doctype} {docname}", frappe.PermissionError)
+
+	renderer = SmartRenderer(doctype, docname, print_format_name)
+	html_content = renderer.render_html()
+
+	frappe.local.response.filename = "preview.html"
+	frappe.local.response.filecontent = html_content
+	frappe.local.response.type = "download"
+	frappe.local.response.display_content_as = "inline"
+
+

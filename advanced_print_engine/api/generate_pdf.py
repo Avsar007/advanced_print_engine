@@ -28,6 +28,37 @@ def get_available_templates(reference_doctype):
 
 
 @frappe.whitelist()
+def get_linked_advanced_format(print_format):
+	"""Return the Advanced Print Format linked to a standard Print Format."""
+	if not print_format or print_format == "Standard":
+		return None
+	return frappe.db.get_value("Print Format", print_format, "custom_advanced_print_format")
+
+
+@frappe.whitelist()
+def get_advanced_format_meta(advanced_format_name):
+	"""Return page layout metadata for screen preview sizing."""
+	if not advanced_format_name:
+		return {}
+	return frappe.db.get_value(
+		"Advanced Print Format",
+		advanced_format_name,
+		["name", "page_size", "orientation", "print_format_name"],
+		as_dict=True,
+	) or {}
+
+
+@frappe.whitelist()
+def get_smart_preview_html(doctype, docname, print_format_name):
+	"""Return paginated HTML for in-app print preview (Frappe-style iframe injection)."""
+	if not frappe.has_permission(doctype, "read", docname):
+		frappe.throw(f"Not permitted to view {doctype} {docname}", frappe.PermissionError)
+
+	renderer = SmartRenderer(doctype, docname, print_format_name)
+	return renderer.render_html()
+
+
+@frappe.whitelist()
 def generate_smart_html(doctype, docname, print_format_name):
 	"""Generates advanced dynamic HTML via SmartRenderer and streams it for screen preview."""
 	# Pre-flight security/access validation

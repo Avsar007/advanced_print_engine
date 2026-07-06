@@ -8,6 +8,7 @@
  "engine": "InnoDB",
  "field_order": [
   "print_format_name",
+  "print_format_created",
   "enabled",
   "reference_doctype",
   "page_size",
@@ -33,6 +34,13 @@
    "label": "Print Format Name",
    "reqd": 1,
    "unique": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "print_format_created",
+   "fieldtype": "Check",
+   "label": "Print Format Created",
+   "read_only": 1
   },
   {
    "fieldname": "reference_doctype",

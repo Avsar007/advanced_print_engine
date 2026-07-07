@@ -9,7 +9,9 @@
  "field_order": [
   "print_format_name",
   "print_format_created",
-  "enabled",
+  "is_standard",
+  "custom_app",
+  "custom_module",
   "reference_doctype",
   "page_size",
   "orientation",
@@ -132,11 +134,27 @@
    "options": "Advanced Print Footer Rule"
   },
   {
-   "default": "1",
-   "fieldname": "enabled",
-   "fieldtype": "Check",
+   "default": "No",
+   "fieldname": "is_standard",
+   "fieldtype": "Select",
    "in_list_view": 1,
-   "label": "Enabled"
+   "label": "Is Standard",
+   "options": "No\nYes"
+  },
+  {
+   "depends_on": "eval:doc.is_standard==='Yes'",
+   "fieldname": "custom_app",
+   "fieldtype": "Select",
+   "label": "App",
+   "mandatory_depends_on": "eval:doc.is_standard==='Yes'"
+  },
+  {
+   "depends_on": "eval:doc.is_standard==='Yes'",
+   "fieldname": "custom_module",
+   "fieldtype": "Link",
+   "label": "Module",
+   "options": "Module Def",
+   "mandatory_depends_on": "eval:doc.is_standard==='Yes'"
   }
  ],
  "grid_page_length": 50,

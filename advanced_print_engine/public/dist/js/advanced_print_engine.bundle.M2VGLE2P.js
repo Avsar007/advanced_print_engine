@@ -301,8 +301,7 @@
                     get_query() {
                       return {
                         filters: {
-                          reference_doctype: frm.doctype,
-                          enabled: 1
+                          reference_doctype: frm.doctype
                         }
                       };
                     }
@@ -344,8 +343,7 @@
         label: __("Advanced Print Format"),
         get_query: () => ({
           filters: {
-            reference_doctype: this.frm.doctype,
-            enabled: 1
+            reference_doctype: this.frm.doctype
           }
         }),
         change: () => {
@@ -563,4 +561,4 @@
     }
   });
 })();
-//# sourceMappingURL=advanced_print_engine.bundle.PNBX7WTL.js.map
+//# sourceMappingURL=advanced_print_engine.bundle.M2VGLE2P.js.map

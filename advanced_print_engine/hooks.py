@@ -83,7 +83,7 @@ app_include_js = "advanced_print_engine.bundle.js"
 # ------------
 
 # before_install = "advanced_print_engine.install.before_install"
-# after_install = "advanced_print_engine.install.after_install"
+after_install = "advanced_print_engine.install.after_install"
 after_migrate = "advanced_print_engine.install.after_migrate"
 
 # Uninstallation

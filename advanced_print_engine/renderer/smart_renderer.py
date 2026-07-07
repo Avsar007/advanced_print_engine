@@ -23,21 +23,19 @@ class SmartRenderer:
         
         header_rules = []
         for rule in self.print_format.get("header_rules"):
-            if rule.enabled:
-                header_rules.append({ 
-                    "rule_type": rule.rule_type,
-                    "page_number": rule.page_number,
-                    "html_content": frappe.render_template(rule.html_content or "", context)
-                })
+            header_rules.append({ 
+                "rule_type": rule.rule_type,
+                "page_number": rule.page_number,
+                "html_content": frappe.render_template(rule.html_content or "", context)
+            })
                 
         footer_rules = []
         for rule in self.print_format.get("footer_rules"):
-            if rule.enabled:
-                footer_rules.append({
-                    "rule_type": rule.rule_type,
-                    "page_number": rule.page_number,
-                    "html_content": frappe.render_template(rule.html_content or "", context)
-                })
+            footer_rules.append({
+                "rule_type": rule.rule_type,
+                "page_number": rule.page_number,
+                "html_content": frappe.render_template(rule.html_content or "", context)
+            })
 
         custom_css = self.print_format.custom_css or ""
         page_size = self.print_format.page_size or "A4"

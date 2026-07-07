@@ -336,7 +336,6 @@ $(document).on("form-refresh", function (e, frm) {
 										return {
 											filters: {
 												reference_doctype: frm.doctype,
-												enabled: 1,
 											},
 										};
 									},
@@ -382,7 +381,6 @@ function hook_print_view_class(PrintViewClass) {
 			get_query: () => ({
 				filters: {
 					reference_doctype: this.frm.doctype,
-					enabled: 1,
 				},
 			}),
 			change: () => {

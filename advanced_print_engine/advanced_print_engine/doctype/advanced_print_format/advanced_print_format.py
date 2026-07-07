@@ -3,17 +3,39 @@
 
 import frappe
 from frappe.model.document import Document
+import os
 
 
 class AdvancedPrintFormat(Document):
 	def validate(self):
 		self.validate_rules("header_rules", "Header Rules")
 		self.validate_rules("footer_rules", "Footer Rules")
+		
+		# Validation for standard print formats
+		if self.is_standard == "Yes":
+			if not self.custom_app or not self.custom_module:
+				frappe.throw("App and Module must be set to save standard print format")
+			if (
+				not frappe.conf.developer_mode
+				and not frappe.flags.in_migrate
+				and not frappe.flags.in_install
+				and not frappe.flags.in_test
+			):
+				frappe.throw("Developer Mode must be enabled to save Standard Advanced Print Format")
+				
 		self.sync_print_format_created_flag()
 
-	def after_insert(self):
-		if not self.print_format_created:
-			self.create_linked_print_format()
+	def on_update(self):
+		self.sync_linked_print_format()
+		
+		from advanced_print_engine.advanced_print_format_utils import (
+			export_advanced_print_format_json,
+			delete_advanced_print_format_json,
+		)
+		if self.is_standard == "Yes":
+			export_advanced_print_format_json(self)
+		else:
+			delete_advanced_print_format_json(self)
 
 	def sync_print_format_created_flag(self):
 		linked = frappe.db.exists(
@@ -28,9 +50,6 @@ class AdvancedPrintFormat(Document):
 		specific_pages = set()
 
 		for row in rules:
-			if not row.enabled:
-				continue
-
 			if row.rule_type == "First Page":
 				first_page_count += 1
 				row.page_number = 0
@@ -62,26 +81,16 @@ class AdvancedPrintFormat(Document):
 	@frappe.whitelist()
 	def create_linked_print_format(self):
 		"""Create a Print Format linked one-way to this Advanced Print Format."""
+		self.sync_linked_print_format()
+		return {"print_format": self.name, "created": True}
+
+	def sync_linked_print_format(self):
+		"""Create or update a Print Format linked one-way to this Advanced Print Format."""
 		pf_name = (self.print_format_name or self.name).strip()
 		if not pf_name:
 			frappe.throw("Print Format Name is required.")
 
-		existing_by_link = frappe.db.get_value(
-			"Print Format", {"custom_advanced_print_format": self.name}, "name"
-		)
-		if existing_by_link:
-			self.db_set("print_format_created", 1, update_modified=False)
-			return {"print_format": existing_by_link, "created": False}
-
 		if frappe.db.exists("Print Format", pf_name):
-			existing_linked = frappe.db.get_value(
-				"Print Format", pf_name, "custom_advanced_print_format"
-			)
-			if existing_linked and existing_linked != self.name:
-				frappe.throw(
-					f"Print Format '{pf_name}' is already linked to Advanced Print Format "
-					f"'{existing_linked}'. Please use a different Print Format Name."
-				)
 			pf_doc = frappe.get_doc("Print Format", pf_name)
 		else:
 			pf_doc = frappe.new_doc("Print Format")
@@ -92,11 +101,17 @@ class AdvancedPrintFormat(Document):
 		pf_doc.doc_type = self.reference_doctype
 		pf_doc.custom_format = 1
 		pf_doc.print_format_type = "Jinja"
-		pf_doc.standard = "No"
+		pf_doc.standard = self.is_standard or "No"
+		pf_doc.module = self.custom_module
 		pf_doc.html = "<!-- Rendered by Advanced Print Engine -->"
 		pf_doc.css = ""
 		pf_doc.disabled = 0
 		pf_doc.save(ignore_permissions=True)
 
 		self.db_set("print_format_created", 1, update_modified=False)
-		return {"print_format": pf_doc.name, "created": True}
+
+
+@frappe.whitelist()
+def get_installed_apps():
+	"""Get list of active apps."""
+	return frappe.get_installed_apps()

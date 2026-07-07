@@ -26,7 +26,6 @@ def create_header_rule_doctype():
 			"custom": 0,
 			"editable_grid": 1,
 			"fields": [
-				{"fieldname": "enabled", "label": "Enabled", "fieldtype": "Check", "default": "1", "in_list_view": 1},
 				{"fieldname": "rule_type", "label": "Rule Type", "fieldtype": "Select", "options": "First Page\nLast Page\nSpecific Page", "in_list_view": 1, "reqd": 1},
 				{"fieldname": "page_number", "label": "Page Number", "fieldtype": "Int", "depends_on": "eval:doc.rule_type=='Specific Page'", "in_list_view": 1},
 				{"fieldname": "html_content", "label": "HTML Content", "fieldtype": "Code", "options": "HTML"},
@@ -46,7 +45,6 @@ def create_footer_rule_doctype():
 			"custom": 0,
 			"editable_grid": 1,
 			"fields": [
-				{"fieldname": "enabled", "label": "Enabled", "fieldtype": "Check", "default": "1", "in_list_view": 1},
 				{"fieldname": "rule_type", "label": "Rule Type", "fieldtype": "Select", "options": "First Page\nLast Page\nSpecific Page", "in_list_view": 1, "reqd": 1},
 				{"fieldname": "page_number", "label": "Page Number", "fieldtype": "Int", "depends_on": "eval:doc.rule_type=='Specific Page'", "in_list_view": 1},
 				{"fieldname": "html_content", "label": "HTML Content", "fieldtype": "Code", "options": "HTML"},
@@ -67,7 +65,9 @@ def create_main_print_format_doctype():
 		"autoname": "field:print_format_name",
 		"fields": [
 			{"fieldname": "print_format_name", "label": "Print Format Name", "fieldtype": "Data", "reqd": 1, "in_list_view": 1},
-			{"fieldname": "enabled", "label": "Enabled", "fieldtype": "Check", "default": "1", "in_list_view": 1},
+			{"fieldname": "is_standard", "label": "Is Standard", "fieldtype": "Select", "options": "No\nYes", "default": "No", "in_list_view": 1},
+			{"fieldname": "custom_app", "label": "App", "fieldtype": "Select", "depends_on": "eval:doc.is_standard==='Yes'", "mandatory_depends_on": "eval:doc.is_standard==='Yes'"},
+			{"fieldname": "custom_module", "label": "Module", "fieldtype": "Link", "options": "Module Def", "depends_on": "eval:doc.is_standard==='Yes'", "mandatory_depends_on": "eval:doc.is_standard==='Yes'"},
 			{"fieldname": "reference_doctype", "label": "Reference Doctype", "fieldtype": "Link", "options": "DocType", "reqd": 1, "in_list_view": 1},
 			{"fieldname": "page_size", "label": "Page Size", "fieldtype": "Select", "options": "A4\nLetter\nLegal", "default": "A4"},
 			{"fieldname": "orientation", "label": "Orientation", "fieldtype": "Select", "options": "Portrait\nLandscape", "default": "Portrait"},

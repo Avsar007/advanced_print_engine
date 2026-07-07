@@ -138,7 +138,6 @@ def generate_demo_data():
             """,
 			"header_rules": [
 				{
-					"enabled": 1,
 					"rule_type": "First Page",
 					"html_content": """
                     <div style="background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); color: #fff; padding: 20px; border-radius: 8px; margin-bottom: 15px;">
@@ -148,7 +147,6 @@ def generate_demo_data():
                     """
 				},
 				{
-					"enabled": 1,
 					"rule_type": "Specific Page",
 					"page_number": 2,
 					"html_content": """
@@ -161,7 +159,6 @@ def generate_demo_data():
 			],
 			"footer_rules": [
 				{
-					"enabled": 1,
 					"rule_type": "Last Page",
 					"html_content": """
                     <div style="border-top: 2px solid #111827; padding-top: 15px; margin-top: 20px;">

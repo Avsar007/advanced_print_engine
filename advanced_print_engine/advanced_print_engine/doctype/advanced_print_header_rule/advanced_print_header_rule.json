@@ -6,20 +6,12 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "enabled",
   "rule_type",
   "page_number",
   "html_content",
   "description"
  ],
  "fields": [
-  {
-   "default": "1",
-   "fieldname": "enabled",
-   "fieldtype": "Check",
-   "in_list_view": 1,
-   "label": "Enabled"
-  },
   {
    "fieldname": "rule_type",
    "fieldtype": "Select",

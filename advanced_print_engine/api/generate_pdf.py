@@ -19,10 +19,10 @@ def generate_smart_pdf(doctype, docname, print_format_name):
 
 @frappe.whitelist()
 def get_available_templates(reference_doctype):
-	"""Returns enabled Advanced Print Formats configured for the reference doctype."""
+	"""Returns Advanced Print Formats configured for the reference doctype."""
 	return frappe.get_all(
 		"Advanced Print Format",
-		filters={"reference_doctype": reference_doctype, "enabled": 1},
+		filters={"reference_doctype": reference_doctype},
 		fields=["name", "print_format_name"]
 	)
 
